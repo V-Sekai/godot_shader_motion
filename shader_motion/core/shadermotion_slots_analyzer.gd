@@ -18,9 +18,7 @@ func show_all_blocks(pixels: SpriteFrames):
 		current_block_name = block_names[block]
 		var analyzer_node = shader_motion_block_analyzer_prefab.instantiate()
 		add_child(analyzer_node)
-		analyzer_node.show_shader_motion_block(
-			pixels, current_block_name, current_block_tiles, _block_encodes_swing_twist(block)
-		)
+		analyzer_node.show_shader_motion_block(pixels, current_block_name, current_block_tiles, _block_encodes_swing_twist(block))
 
 
 func _ready():

@@ -75,6 +75,7 @@ func _show_computed_data():
 			bone_rotation_label.text = str(computed_rotation)
 			bone_hips_scale_label.text = str(computed_scale)
 
+
 func _compute_hips_motion(vectors: PackedVector3Array):
 	if vectors == null or len(vectors) < 4:
 		printerr("Invalid Hips motion data !")
@@ -83,11 +84,7 @@ func _compute_hips_motion(vectors: PackedVector3Array):
 	var position_high: Vector3 = vectors[0]
 	var position_low: Vector3 = vectors[1]
 
-	var decoded_position: Vector3 = Vector3(
-		ShaderMotionHelpers.decode_video_float(position_high.x, position_low.x, tile_pow),
-		ShaderMotionHelpers.decode_video_float(position_high.y, position_low.y, tile_pow),
-		ShaderMotionHelpers.decode_video_float(position_high.z, position_low.z, tile_pow)
-	)
+	var decoded_position: Vector3 = Vector3(ShaderMotionHelpers.decode_video_float(position_high.x, position_low.x, tile_pow), ShaderMotionHelpers.decode_video_float(position_high.y, position_low.y, tile_pow), ShaderMotionHelpers.decode_video_float(position_high.z, position_low.z, tile_pow))
 
 	var rotation_vectors: PackedVector3Array = ShaderMotionHelpers.orthogonalize(vectors[2], vectors[3])
 
@@ -122,13 +119,7 @@ func _compute_hips_bone_data(parsed_angles: PackedFloat64Array):
 	_compute_hips_motion(decoded_vectors)
 
 
-func _decode_tiles(
-	pixels: TileFrames,
-	animation_time: float,
-	bone_tiles: Array,
-	raw: bool = false
-) -> PackedFloat64Array:
-
+func _decode_tiles(pixels: TileFrames, animation_time: float, bone_tiles: Array, raw: bool = false) -> PackedFloat64Array:
 	var parsed_angles: PackedFloat64Array = PackedFloat64Array()
 	for shader_motion_tile in bone_tiles:
 		# -1 indices return 0
@@ -148,12 +139,7 @@ func _decode_tiles(
 	return parsed_angles
 
 
-func analyze_bone_from(
-	pixels: TileFrames,
-	animation_time: float,
-	bone: ShaderMotionHelpers.MecanimBodyBone,
-	bone_name: String
-):
+func analyze_bone_from(pixels: TileFrames, animation_time: float, bone: ShaderMotionHelpers.MecanimBodyBone, bone_name: String):
 	if bone < ShaderMotionHelpers.MecanimBodyBone.Hips or bone >= ShaderMotionHelpers.MecanimBodyBone.LastBone:
 		printerr("Invalid bone %d" % [int(bone)])
 		return
@@ -170,12 +156,7 @@ func analyze_bone_from(
 
 	analyzed_bone = bone
 	analyzed_bone_name = bone_name
-	var parsed_angles: PackedFloat64Array = _decode_tiles(
-		pixels,
-		animation_time,
-		bone_tiles,
-		bone == ShaderMotionHelpers.MecanimBodyBone.Hips
-	)
+	var parsed_angles: PackedFloat64Array = _decode_tiles(pixels, animation_time, bone_tiles, bone == ShaderMotionHelpers.MecanimBodyBone.Hips)
 
 	if bone != ShaderMotionHelpers.MecanimBodyBone.Hips:
 		_compute_standard_bone_data(parsed_angles, bone)

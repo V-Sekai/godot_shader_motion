@@ -19,22 +19,14 @@ var shader_motion_decoded_angle: float = NAN
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var required_values: Array = [
-		slot_value_label,
-		square_raw,
-		square_adjacent_raw,
-		square_converted,
-		square_adjacent_converted,
-		gray_value,
-		decoded_value_label,
-		converted_value
-	]
+	var required_values: Array = [slot_value_label, square_raw, square_adjacent_raw, square_converted, square_adjacent_converted, gray_value, decoded_value_label, converted_value]
 	for value in required_values:
 		if value == null:
 			printerr("[%s] [ShaderMotion Slot Analyzer] Component badly setup" % name)
 			printerr("[%s] [ShaderMotion Slot Analyzer] Disabling" % name)
 			process_mode = Node.PROCESS_MODE_DISABLED
 			return
+
 
 func _join_vector3_as_string(vec: Vector3, separator: String = "") -> String:
 	return separator.join([vec[0], vec[1], vec[2]])
@@ -56,13 +48,10 @@ func _int32_array_to_string(int32_array: PackedInt32Array, separator: String = "
 
 
 func _show_slot_samples(square_texture: Image, square_adjacent_texture: Image):
-	var square_sample:Color = GodotHelpers.image_sample_center_pixel(square_texture)
-	var square_adjacent_sample:Color = GodotHelpers.image_sample_center_pixel(square_adjacent_texture)
+	var square_sample: Color = GodotHelpers.image_sample_center_pixel(square_texture)
+	var square_adjacent_sample: Color = GodotHelpers.image_sample_center_pixel(square_adjacent_texture)
 
-	var colors_sampled_correctly:bool = (
-		square_sample != GodotHelpers.invalid_color
-		and square_adjacent_sample != GodotHelpers.invalid_color
-	)
+	var colors_sampled_correctly: bool = square_sample != GodotHelpers.invalid_color and square_adjacent_sample != GodotHelpers.invalid_color
 	if not colors_sampled_correctly:
 		printerr("[%s] [ShaderMotion Slot Analyzer] Could not sample the texture :C" % [name])
 		return
@@ -85,12 +74,7 @@ func _show_slot_samples(square_texture: Image, square_adjacent_texture: Image):
 	converted_value.text = "%f" % [shader_motion_decoded_angle]
 
 
-func _get_slot_image(
-	frames: TileFrames,
-	animation_time: float,
-	slot_index: int,
-	adjacent: bool = false
-) -> Image:
+func _get_slot_image(frames: TileFrames, animation_time: float, slot_index: int, adjacent: bool = false) -> Image:
 	var frame_index: int = slot_index * 2
 	frame_index += int(adjacent)
 	return frames.tiles[animation_time][frame_index]
@@ -106,7 +90,6 @@ func show_slot(pixels: TileFrames, animation_time: float, slot_idx: int):
 	slot_value_label.text = str(slot_idx)
 	_show_slot_samples(square_texture, square_adjacent_texture)
 
-
 #func _base3_total(numbers: PackedInt32Array) -> int:
 #	var exponent = len(numbers) - 1
 #	var accumulator = 0
@@ -118,7 +101,6 @@ func show_slot(pixels: TileFrames, animation_time: float, slot_idx: int):
 #		accumulator += value
 #		exponent -= 1
 #	return accumulator
-
 
 #const flip_codes: PackedInt32Array = [2, 1, 0]
 #
@@ -139,5 +121,3 @@ func show_slot(pixels: TileFrames, animation_time: float, slot_idx: int):
 #
 #func shader_motion_gray_to_float(decoded_gray_value: int) -> float:
 #	return (decoded_gray_value / 364.0) - 1
-
-

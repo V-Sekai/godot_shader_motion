@@ -10,17 +10,11 @@ const tile_pow: float = pow(color_tile_radix, color_tile_len * 3)
 
 
 static func hlsl_vector2_ternary(condition: Vector2, if_values: Vector2, else_values: Vector2) -> Vector2:
-	return Vector2(
-		if_values.x if bool(condition.x) else else_values.x, if_values.y if bool(condition.y) else else_values.y
-	)
+	return Vector2(if_values.x if bool(condition.x) else else_values.x, if_values.y if bool(condition.y) else else_values.y)
 
 
 static func hlsl_vector3_ternary(condition: Vector3, if_values: Vector3, else_values: Vector3) -> Vector3:
-	return Vector3(
-		if_values.x if bool(condition.x) else else_values.x,
-		if_values.y if bool(condition.y) else else_values.y,
-		if_values.z if bool(condition.z) else else_values.z
-	)
+	return Vector3(if_values.x if bool(condition.x) else else_values.x, if_values.y if bool(condition.y) else else_values.y, if_values.z if bool(condition.z) else else_values.z)
 
 
 static func hlsl_vector2_and(condition_a: Vector2i, condition_b: Vector2i) -> Vector2i:
@@ -93,9 +87,7 @@ static func _sm_gray_decoder_add(state: Vector3, value: float, radix: int, conti
 	var selectors: Vector2i = hlsl_vector2_and(continuation_select, zero_two_select)
 
 	var value_minus_round: float = value - rounded_value
-	var state_yz: Vector2 = hlsl_vector2_ternary(
-		selectors, current_state_yz, Vector2(value_minus_round, value_minus_round)
-	)
+	var state_yz: Vector2 = hlsl_vector2_ternary(selectors, current_state_yz, Vector2(value_minus_round, value_minus_round))
 
 	var state_after: Vector3 = Vector3(current_state_x * radix + rounded_value, state_yz[0], state_yz[1])
 
@@ -136,9 +128,7 @@ static func _sm_gray_decoder_sum(state: Vector3) -> float:
 	var unknown_operation: float = min_zy / not_zero_positive * diff_zy + diff_zy
 	var result = unknown_operation * 0.5 + state.x
 
-	log_func(
-		"_sm_gray_decoder_sum", {"state": state, "state_zy": state_zy, "positive_zy": positive_zy, "result": result}
-	)
+	log_func("_sm_gray_decoder_sum", {"state": state, "state_zy": state_zy, "positive_zy": positive_zy, "result": result})
 
 	return result
 

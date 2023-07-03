@@ -23,35 +23,27 @@ func _generate_dummy_bones_array() -> Array[Node3D]:
 		bones[bone] = bone_node
 	return bones
 
+
 var skeleton_bones: Array[Node3D] = _generate_dummy_bones_array()
 
-var animation_names : Array[float]
+var animation_names: Array[float]
 
-var animation : Animation = Animation.new()
+var animation: Animation = Animation.new()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var should_stop: bool = NodeHelpers.stop_if_any_is_null(
-		self,
-		[
-			shadermotion_bone_analyzer,
-			shadermotion_frame_pixels_display,
-			analyzed_pixels,
-			bone_info_scene,
-			result_bones_list
-		],
-		"ShaderMotion to Mecanim Bones"
-	)
+	var should_stop: bool = NodeHelpers.stop_if_any_is_null(self, [shadermotion_bone_analyzer, shadermotion_frame_pixels_display, analyzed_pixels, bone_info_scene, result_bones_list], "ShaderMotion to Mecanim Bones")
 	if should_stop:
 		return
 
-	var current_animation_names : Array = analyzed_pixels.tiles.keys()
+	var current_animation_names: Array = analyzed_pixels.tiles.keys()
 	current_animation_names.pop_back()
 	for animation in current_animation_names:
 		animation_names.push_back(animation)
 	animation.length = current_animation_names.back()
 	print(animation.length)
-	
+
 	var bone_names = ShaderMotionHelpers.MecanimBodyBone.keys()
 
 	for bone in range(0, int(ShaderMotionHelpers.MecanimBodyBone.LastBone)):
@@ -75,10 +67,12 @@ func _ready():
 	animation.track_set_interpolation_type(current_index, Animation.INTERPOLATION_CUBIC)
 
 	print(animation_names)
-	
+
+
 func _process(delta):
 	calc_frame()
-		
+
+
 func calc_frame() -> void:
 	if not animation_names.size():
 		get_tree().quit()
@@ -94,9 +88,7 @@ func calc_frame() -> void:
 		motions.swing_twists[bone].set_motion_data(analyzer.computed_swing_twist, analyzer.computed_rotation)
 
 		if bone == ShaderMotionHelpers.MecanimBodyBone.Hips:
-			motions.hips.set_transform(
-				analyzer.computed_swing_twist, analyzer.computed_rotation, analyzer.computed_scale
-			)
+			motions.hips.set_transform(analyzer.computed_swing_twist, analyzer.computed_rotation, analyzer.computed_scale)
 	analyzer.queue_free()
 	print(animation_time)
 	var precomputed_skeleton_human_scale: float = 0.749392
