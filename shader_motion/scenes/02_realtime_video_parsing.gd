@@ -24,7 +24,7 @@ func _create_track_for(
 ) -> int:
 	var track_index:int = base_animation.add_track(animation_type)
 	base_animation.track_set_path(track_index, _animation_path_for(bone, _cached_bones_names))
-	base_animation.track_set_interpolation_type(track_index, animation_type)
+	base_animation.track_set_interpolation_type(track_index, interpolation)
 	return track_index
 
 func _prepare_animation_tracks(
