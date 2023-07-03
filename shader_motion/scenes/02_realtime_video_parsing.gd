@@ -108,7 +108,7 @@ func _add_animation_frame(
 		if not is_basis_orthogonal(skeleton_bones[bone].transform.basis):
 			continue
 		var unity_bone_rotation: Quaternion = skeleton_bones[bone].transform.basis.get_rotation_quaternion()
-		if unity_bone_rotation == NodeHelpers.invalid_quaternion:
+		if unity_bone_rotation == GodotHelpers.invalid_quaternion:
 			continue
 
 		var godot_rotation: Quaternion = GodotHelpers.unity_rotation_to_godot(unity_bone_rotation)

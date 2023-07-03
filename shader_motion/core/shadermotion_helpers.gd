@@ -1445,8 +1445,8 @@ static func orthogonalize(u:Vector3, v:Vector3) -> PackedVector3Array:
 	return returned_vectors
 
 class HipsData:
-	var position:Vector3 = NodeHelpers.invalid_vector
-	var rotation:Quaternion = NodeHelpers.invalid_quaternion
+	var position:Vector3 = GodotHelpers.invalid_vector
+	var rotation:Quaternion = GodotHelpers.invalid_quaternion
 	var scale:float = NAN
 
 	func set_transform(
@@ -1473,7 +1473,7 @@ class HipsData:
 		decoded_values:PackedFloat32Array,
 		tile_pow_value:int = _default_tile_pow
 	):
-		var vectors:PackedVector3Array = NodeHelpers.float32_array_to_packed_vector3(decoded_values)
+		var vectors:PackedVector3Array = GodotHelpers.float32_array_to_packed_vector3(decoded_values)
 		if len(vectors) < 4:
 			printerr("Invalid Hips motion data !")
 			return
@@ -1509,8 +1509,8 @@ class HipsData:
 		)
 
 class MotionData:
-	var swing_twist:Vector3 = NodeHelpers.invalid_vector
-	var computed_rotation:Quaternion = NodeHelpers.invalid_quaternion
+	var swing_twist:Vector3 = GodotHelpers.invalid_vector
+	var computed_rotation:Quaternion = GodotHelpers.invalid_quaternion
 	var setup:bool = false
 
 	func set_motion_data(swing_twist_data:Vector3, rotation_data:Quaternion):
@@ -1519,7 +1519,7 @@ class MotionData:
 		self.setup = true
 
 	func compute_from(bone:MecanimBodyBone, decoded_values:PackedFloat32Array):
-		var decoded_vector: Vector3 = NodeHelpers.float32_array_to_vector3(decoded_values)
+		var decoded_vector: Vector3 = GodotHelpers.float32_array_to_vector3(decoded_values)
 		var swing_twist_degrees: Vector3 = decoded_vector * 180
 		var bone_signs: Vector3 = ShaderMotionHelpers.human_axes[bone].limit_sign
 
@@ -1553,7 +1553,6 @@ class ParsedMotions:
 		if not ShaderMotionHelpers.mecanim_bone_tiles.has(bone):
 			return decoded_values
 
-		# FIXME Check if we should rename mecanim_body_tiles to mecanim_body_slots ?
 		var bone_related_slots:Array = ShaderMotionHelpers.mecanim_bone_tiles[bone]
 		for slot_index in bone_related_slots:
 			var slot_colors:Array[Color] = get_slot_colors_method.call(
@@ -1732,7 +1731,7 @@ static func _shadermotion_apply_human_pose(
 	for bone in range(0, int(MecanimBodyBone.LastBone)):
 
 		var decoded_rotation:Quaternion = parsed_motions.swing_twists[bone].computed_rotation
-		if decoded_rotation == NodeHelpers.invalid_quaternion:
+		if decoded_rotation == GodotHelpers.invalid_quaternion:
 			continue
 
 		var bone_rotation:Quaternion
