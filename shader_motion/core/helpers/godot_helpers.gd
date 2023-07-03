@@ -73,7 +73,6 @@ static func remove_children_from(node: Node):
 	while current_index >= 0:
 		var node_child = node_children[current_index]
 		node_child.queue_free()
-		#node.remove_child(node_child)
 		current_index -= 1
 
 
