@@ -1594,7 +1594,6 @@ class ParsedMotions:
 				bone,
 				tile_data_get_color_method)
 			if decoded_values.is_empty():
-				printerr("[HipsData.generate_from] Ignoring bone %d" % [bone])
 				continue
 
 			parsed_motions.swing_twists[bone].compute_from(bone, decoded_values)
