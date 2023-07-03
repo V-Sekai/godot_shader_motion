@@ -1580,6 +1580,9 @@ class ParsedMotions:
 			ShaderMotionHelpers.MecanimBodyBone.Hips,
 			tile_data_get_color_method))
 
+		# Rotate the hips to face the correct direction in Godot
+		parsed_motions.hips.rotation.y += PI
+
 		# Replicate values on MotionData to avoid corner cases everywhere
 		var hips_motion:MotionData = parsed_motions.swing_twists[ShaderMotionHelpers.MecanimBodyBone.Hips]
 		hips_motion.swing_twist = parsed_motions.hips.position

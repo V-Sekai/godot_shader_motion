@@ -43,7 +43,7 @@ func get_tiles_colors_from_slot(frame_tiles: Array, slot_index: int) -> Array[Co
 	var tile_color: Color = GodotHelpers.image_sample_center_pixel(tile_image)
 	var adjacent_tile_color: Color = GodotHelpers.image_sample_center_pixel(adjacent_tile_image)
 
-	if tile_color == GodotHelpers.invalid_color or adjacent_tile_color == GodotHelpers.invalid_color:
+	if tile_color == GodotHelpers.INVALID_COLOR or adjacent_tile_color == GodotHelpers.INVALID_COLOR:
 		printerr("(slot %d) Could not sample the colors of tiles %d and %d images" % [str(slot_index), str(tile_index), str(adjacent_tile_index)])
 		return result
 

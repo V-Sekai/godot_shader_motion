@@ -82,17 +82,13 @@ func _add_animation_frame(
 
 	for bone in range(0, int(ShaderMotionHelpers.MecanimBodyBone.LastBone)):
 		if not animation_rotation_tracks.has(bone):
-			#printerr("Don't have a track for that, Jim.")
 			continue
 
-		# WARNING get_rotation_quaternion
 		var unity_bone_rotation: Quaternion = skeleton_bones[bone].quaternion.normalized()
 		if unity_bone_rotation == NodeHelpers.invalid_quaternion:
-			#printerr("Invalid rotation for bone %d. Skipping" % [str(bone)])
 			continue
 
 		var godot_rotation: Quaternion = GodotHelpers.unity_rotation_to_godot(unity_bone_rotation)
-		#(Basis.FLIP_X.inverse() * Basis(unity_bone_rotation) * Basis.FLIP_X).get_rotation_quaternion()
 
 		var animation_track_index: int = animation_rotation_tracks[bone]
 

@@ -11,11 +11,11 @@ var animation_rotation_tracks: Dictionary = Dictionary()
 var animation_position_tracks: Dictionary = Dictionary()
 
 
-func _animation_path_for(bone: ShaderMotionHelpers.MecanimBodyBone, bone_names) -> NodePath:
+func _animation_path_for(bone: int, bone_names) -> NodePath:
 	return NodePath("%s:%s" % [str(skeleton_root_path), str(bone_names[bone])])
 
 
-func _create_track_for(bone: ShaderMotionHelpers.MecanimBodyBone, base_animation: Animation, animation_type: Animation.TrackType, interpolation: Animation.InterpolationType) -> int:
+func _create_track_for(bone: int, base_animation: Animation, animation_type: Animation.TrackType, interpolation: Animation.InterpolationType) -> int:
 	var track_index: int = base_animation.add_track(animation_type)
 	base_animation.track_set_path(track_index, _animation_path_for(bone, _cached_bones_names))
 	base_animation.track_set_interpolation_type(track_index, interpolation)
@@ -74,7 +74,7 @@ func get_tiles_colors_from_slot(frame_tiles: Array, slot_index: int) -> Array[Co
 	var tile_color: Color = GodotHelpers.image_sample_center_pixel(tile_image)
 	var adjacent_tile_color: Color = GodotHelpers.image_sample_center_pixel(adjacent_tile_image)
 
-	if tile_color == GodotHelpers.invalid_color or adjacent_tile_color == GodotHelpers.invalid_color:
+	if tile_color == GodotHelpers.INVALID_COLOR or adjacent_tile_color == GodotHelpers.INVALID_COLOR:
 		printerr("(slot %d) Could not sample the colors of tiles %d and %d images" % [str(slot_index), str(tile_index), str(adjacent_tile_index)])
 		return result
 

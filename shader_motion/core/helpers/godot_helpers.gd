@@ -4,11 +4,12 @@ extends Node
 # This is just a set of random helpers
 class_name GodotHelpers
 
-const invalid_color: Color = Color(NAN, NAN, NAN, NAN)
+const FLIP_X = Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1))
+const INVALID_COLOR: Color = Color(NAN, NAN, NAN, NAN)
 
 
 static func image_sample_center_pixel(image: Image) -> Color:
-	var ret_color: Color = invalid_color
+	var ret_color: Color = INVALID_COLOR
 	if image == null:
 		printerr("[GodotHelpers] [ShaderMotion Slot Analyzer] No image on your texture !")
 		return ret_color
@@ -24,4 +25,4 @@ static func image_sample_center_pixel(image: Image) -> Color:
 
 
 static func unity_rotation_to_godot(unity_rotation: Quaternion) -> Quaternion:
-	return (Basis.FLIP_X.inverse() * Basis(unity_rotation) * Basis.FLIP_X).get_rotation_quaternion()
+	return (FLIP_X.inverse() * Basis(unity_rotation) * FLIP_X).get_rotation_quaternion()
