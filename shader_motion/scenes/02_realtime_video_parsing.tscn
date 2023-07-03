@@ -19,5 +19,5 @@ autoplay = true
 expand = true
 script = ExtResource("2_svvtl")
 skeleton_root_path = "%GeneralSkeleton"
-generated_animation_filepath = "res://shader_motion/art/animations/real_time_frames.tres"
+generated_animation_filepath = "res://shader_motion/art/real_time_frames.tres"
 max_seconds_saved = 5.0

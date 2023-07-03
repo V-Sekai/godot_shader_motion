@@ -1311,12 +1311,12 @@ func _test_swing_twist():
 	pass
 
 static func shadermotion_tile_rect(
-	tile_index:int, adjacent:int,
-	tiles_per_column:int = 45,
+	tile_index:float, adjacent:int,
+	tiles_per_column: float = 45,
 	tile_width:int = 24,
 	tile_height:int = 24) -> Rect2:
 	var block_column:int = round(tile_index / tiles_per_column)
-	var block_row:int = tile_index % tiles_per_column
+	var block_row:int = int(tile_index) % int(tiles_per_column)
 	var block_x:int = block_column * (tile_width * 2)
 	var block_y:int = block_row
 	var x:int = block_x if adjacent == 0 else block_x + tile_width
@@ -1347,8 +1347,7 @@ static func get_shader_motion_tiles_from_texture(
 	tile_width:int = 24,
 	tile_height:int = 24
 ) -> Dictionary:
-	var tiles : Array[Image]
-	var i:int = 0
+	var tiles : Array[Image] = []
 	for frame_block_name in ShaderMotionHelpers.block_tiles:
 		var frame_block:Array = ShaderMotionHelpers.block_tiles[frame_block_name]
 		for tile_index in frame_block:
@@ -1384,22 +1383,22 @@ static func get_shader_motion_tiles_part(
 static func decode_video_float(
 	high:float,
 	low:float,
-	power:int
+	power:float
 ) -> float:
 
-	var half_pow = (power - 1) / 2
+	var half_pow: float = (power - 1) / 2.0
 	high = high * half_pow + half_pow
 	low  = low  * half_pow + half_pow
 
-	var x = UnityHelpers.roundi(low)
+	var x: int = UnityHelpers.roundeveni(low)
 
-	var low_remainder = low - x
-	var y = min(low_remainder, 0)
-	var z = max(low_remainder, 0)
-	var rounded_high = UnityHelpers.roundi(high)
+	var low_remainder: float = low - x
+	var y: float = min(low_remainder, 0)
+	var z: float = max(low_remainder, 0)
+	var rounded_high: int = UnityHelpers.roundeveni(high)
 
 	if (rounded_high & 1) != 0:
-		x = power - 1 - x
+		x = int(power) - 1 - x
 		var minus_z = -z
 		var minus_y = -z
 		y = minus_z
@@ -1410,11 +1409,11 @@ static func decode_video_float(
 	if x == power - 1:
 		z += max(0, high - rounded_high)
 
-	x += rounded_high * power;
-	x -= (power*power-1)/2;
+	x += rounded_high * int(power)
+	x -= (float(power)*float(power)-1.0) / 2.0
 
-	y += 0.5;
-	z -= 0.5;
+	y += 0.5
+	z -= 0.5
 
 	var max_y_z = max(abs(y), abs(z))
 
@@ -1535,7 +1534,7 @@ class ParsedMotions:
 	var swing_twists:Array[MotionData]
 
 	func _init():
-		var swing_twists_values:Array[MotionData]
+		var swing_twists_values:Array[MotionData] = []
 		swing_twists_values.resize(ShaderMotionHelpers.MecanimBodyBone.LastBone)
 
 		for bone in range(int(ShaderMotionHelpers.MecanimBodyBone.LastBone)):
@@ -1671,15 +1670,24 @@ static func _shadermotion_apply_scale(
 	skeleton_root.scale = base_scale / skeleton_human_scale * Vector3.ONE
 	return
 
+
 static func _shadermotion_compute_hips_position(
 	skeleton_root:Node3D,
 	hips_data:HipsData,
 	skeleton_human_scale:float
 ) -> Vector3:
-
 	var applied_scale:float = hips_data.scale / skeleton_human_scale
 	var local_point:Vector3 = hips_data.position / applied_scale
-	return skeleton_root.to_global(local_point)
+
+	# Manually calculate the global position
+	var current_node: Node3D = skeleton_root
+	var global_transform := Transform3D()
+	while current_node:
+		global_transform = current_node.transform * global_transform
+		current_node = current_node.get_parent() if current_node.get_parent() is Node3D else null
+
+	return global_transform * local_point
+
 
 static func _shadermotion_compute_bone_rotation(
 	bone_data:Dictionary,

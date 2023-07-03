@@ -83,7 +83,7 @@ static func look_rotation(forward_vector: Vector3, up_vector: Vector3) -> Quater
 # This one rounds to even. Meaning that
 # 10.5f rounds to 10
 # 11.5f founds to 12
-static func roundi(value: float) -> int:
+static func roundeveni(value: float) -> int:
 	var rounded: int = roundi(value)
 	if abs(value - rounded) != 0.5:
 		return rounded
