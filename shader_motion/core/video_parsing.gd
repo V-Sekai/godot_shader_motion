@@ -120,7 +120,6 @@ func _add_animation_frame(
 	var hips_bone = ShaderMotionHelpers.MecanimBodyBone.Hips
 	var hips_position_track_index: int = animation_position_tracks[hips_bone]
 	var bone_position: Vector3 = skeleton_bones[hips_bone].position
-	bone_position.z = -bone_position.z
 	p_animation.position_track_insert_key(hips_position_track_index, p_stream_time, bone_position)
 
 

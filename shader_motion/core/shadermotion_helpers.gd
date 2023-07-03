@@ -880,7 +880,8 @@ const mecanim_bone_muscles = {
 # This is just a random data dump from Unity.
 # These values might be extremely tied to the specific model
 # avatar Rig that was loaded in Unity.
-const human_axes = {
+static func get_human_axes() -> Dictionary:
+	return {
 #	hips is a bit special.
 #	but hips has
 #	bone.rotation * postQ == rotationMatrix * preQ
@@ -891,282 +892,281 @@ const human_axes = {
 #	https://gitlab.com/lox9973/ShaderMotion/-/blob/master/Script/Common/HumanAxes.cs#L12
 #	https://gitlab.com/lox9973/ShaderMotion/-/blob/master/Script/Common/Skeleton.cs#L43
 #
-# Post is bone roll orientation
-# Pre is converting to bicycle pose
-
+# Post is bone roll orientation# Pre is converting to bicycle pose
 	MecanimBodyBone.Hips: {
-		"pre_rotation": Quaternion(0.707107, 0, 0, 0.707107),
-		"post_rotation": Quaternion(-0.03661, -0.706159, -0.03661, 0.706159),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.LeftUpperLeg: {
-		"pre_rotation": Quaternion(-1.538277e-7, 0, 0.895309, -0.445446),
-		"post_rotation": Quaternion(0.708897, 0.705312, 0, -9.173525e-8),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, -1, 0), Vector3(0, 0, 1)),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.RightUpperLeg: {
-		"pre_rotation": Quaternion(-0, 0, 0.89531, -0.445444),
-		"post_rotation": Quaternion(0.708895, 0.705314, -0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation":  Basis(Vector3(-1, 0, 0), Vector3(0, -1, 0), Vector3(0, 0, 1)),
 		"limit_sign": Vector3(-1, -1, 1)
 	},
 	MecanimBodyBone.LeftLowerLeg: {
-		"pre_rotation": Quaternion(-0.99777, -0.06675, 0, -0),
-		"post_rotation": Quaternion(-0.703807, -0.710391, 0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(1, -1, -1)
 	},
 	MecanimBodyBone.RightLowerLeg: {
-		"pre_rotation": Quaternion(-0.99777, -0.066747, -0, -0),
-		"post_rotation": Quaternion(-0.70381, -0.710389, -0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(-1, 1, -1)
 	},
 	MecanimBodyBone.LeftFoot: {
-		"pre_rotation": Quaternion(-0.698167, -0.715935, 0, -0),
-		"post_rotation": Quaternion(-0.714741, -0.69939, 0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 0, -1), Vector3(0, -1, 0)),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.RightFoot: {
-		"pre_rotation": Quaternion(-0.698167, -0.715935, 0, -0),
-		"post_rotation": Quaternion(-0.714741, -0.69939, 0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 0, -1), Vector3(0, -1, 0)),
 		"limit_sign": Vector3(-1, -1, 1)
 	},
 	MecanimBodyBone.Spine: {
-		"pre_rotation": Quaternion(0.798239, 0.602342, -0, 0),
-		"post_rotation": Quaternion(0.732742, 0.680506, -0, 0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, 1)
-	},
+	},	
 	MecanimBodyBone.Chest: {
-		"pre_rotation": Quaternion(-0.679783, -0.733413, -0, -0),
-		"post_rotation": Quaternion(0, 0, 0.999906, -0.013728),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.Neck: {
-		"pre_rotation": Quaternion(0, 0, 0.99318, 0.116589),
-		"post_rotation": Quaternion(-0.688814, -0.724939, 0, -0),
+		"pre_rotation": Basis(),
+		"post_rotation":  Basis(),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.Head: {
-		"pre_rotation": Quaternion(-0.769553, -0.638583, 0, 0),
-		"post_rotation": Quaternion(-0.706172, -0.70804, 0, 0),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, 1)
 	},
 	MecanimBodyBone.LeftShoulder: {
-		"pre_rotation": Quaternion(0.551825, 0.438697, 0.440558, -0.555826),
-		"post_rotation": Quaternion(0.493272, 0.49327, -0.506641, -0.506639),
+		"pre_rotation": Basis(),
+		"post_rotation":  Basis(Vector3(0, 1, 0), Vector3(0, 0, 1), Vector3(1, 0, 0)),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.RightShoulder: {
-		"pre_rotation": Quaternion(-0.55579, 0.440602, 0.438743, 0.55179),
-		"post_rotation": Quaternion(-0.506641, -0.506641, 0.49327, 0.49327),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, -1, 0), Vector3(0, 0, 1), Vector3(-1, 0, 0)),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.LeftUpperArm: {
-		"pre_rotation": Quaternion(0.466266, 0.49242, -0.698724, -0.227823),
-		"post_rotation": Quaternion(0.493089, 0.493089, -0.506817, -0.506816),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.RightUpperArm: {
-		"pre_rotation": Quaternion(-0.227777, -0.698767, 0.492358, 0.46629),
-		"post_rotation": Quaternion(-0.506817, -0.506817, 0.493089, 0.493089),
+		"pre_rotation": Basis(),
+		"post_rotation":  Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.LeftLowerArm: {
-		"pre_rotation": Quaternion(-0.014063, -0.000857, -0.996034, -0.087848),
-		"post_rotation": Quaternion(-0.009706, -0.009707, -0.706575, -0.707505),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, 0, -1), Vector3(0, 1, 0), Vector3(1, 0, 0)),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.RightLowerArm: {
-		"pre_rotation": Quaternion(-0.087847, -0.996034, -0.000842, -0.014054),
-		"post_rotation": Quaternion(-0.707505, -0.706575, -0.009706, -0.009707),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(-1, 0, 0)),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.LeftHand: {
-		"pre_rotation": Quaternion(0.493418, 0.49276, -0.506488, -0.507145),
-		"post_rotation": Quaternion(0.498167, 0.501821, -0.497521, -0.502472),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(-1, 0, 0)),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.RightHand: {
-		"pre_rotation": Quaternion(-0.507146, -0.506487, 0.49276, 0.493418),
-		"post_rotation": Quaternion(-0.501804, -0.498194, 0.501154, 0.49884),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, 0, -1), Vector3(0, 1, 0), Vector3(1, 0, 0)),
 		"limit_sign": Vector3(-1, 1, 1)
-	},
+	},	
 	MecanimBodyBone.LeftToes: {
-		"pre_rotation": Quaternion(0.010855, 0.999941, -0, 0),
-		"post_rotation": Quaternion(0, 0.707107, 0, 0.707107),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(1, 1, 1)
-	},
+	},	
 	MecanimBodyBone.RightToes: {
-		"pre_rotation": Quaternion(0.010855, 0.999941, -0, 0),
-		"post_rotation": Quaternion(0, 0.707107, 0, 0.707107),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, -1)),
 		"limit_sign": Vector3(-1, -1, 1)
-	},
+	},	
 	MecanimBodyBone.LeftEye: {
-		"pre_rotation": Quaternion(0, 0, 0.999999, -0.001321),
-		"post_rotation": Quaternion(0, 0, 0.999987, 0.005208),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(1, 0, 0), Vector3(0, 0, -1), Vector3(0, 1, 0)),
 		"limit_sign": Vector3(-1, 1, -1)
 	},
 	MecanimBodyBone.RightEye: {
-		"pre_rotation": Quaternion(0, 0, 0.999999, -0.001321),
-		"post_rotation": Quaternion(0, 0, 0.999987, 0.005208),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(1, 0, 0), Vector3(0, -1, 0), Vector3(0, 1, 0)),
 		"limit_sign": Vector3(1, -1, -1)
-	},
+	},	
 	MecanimBodyBone.Jaw: {
-		"pre_rotation": Quaternion(0, 0, 0, 1),
-		"post_rotation": Quaternion(0, 0, 0, 1),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(-1, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0)),
 		"limit_sign": Vector3(1, 1, 1)
-	},
+	},	
 	MecanimBodyBone.LeftThumbProximal: {
-		"pre_rotation": Quaternion(0.082888, -0.119088, -0.948627, -0.281168),
-		"post_rotation": Quaternion(0.049636, 0.061558, -0.690337, -0.719154),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, -0.577, 0.816), Vector3(0, 0.816, 0.577), Vector3(-1, 0, 0)),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.LeftThumbIntermediate: {
-		"pre_rotation": Quaternion(0.015854, 0.071953, -0.513928, -0.854663),
-		"post_rotation": Quaternion(0.036813, 0.066408, -0.696017, -0.713999),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
-	},
+	},	
 	MecanimBodyBone.LeftThumbDistal: {
-		"pre_rotation": Quaternion(0.016913, 0.066312, -0.543185, -0.83682),
-		"post_rotation": Quaternion(0.051237, 0.02272, -0.714849, -0.697029),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
-	},
+	},	
 	MecanimBodyBone.LeftIndexProximal: {
-		"pre_rotation": Quaternion(0.583848, 0.359439, -0.675595, -0.271104),
-		"post_rotation": Quaternion(0.499013, 0.501091, -0.497307, -0.502572),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
-	},
+	},	
 	MecanimBodyBone.LeftIndexIntermediate: {
-		"pre_rotation": Quaternion(0.627522, 0.329651, -0.610862, -0.352694),
-		"post_rotation": Quaternion(0.499736, 0.500264, -0.500264, -0.499736),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
-	},
+	},	
 	MecanimBodyBone.LeftIndexDistal: {
-		"pre_rotation": Quaternion(0.632768, 0.319906, -0.630223, -0.31636),
-		"post_rotation": Quaternion(0.507655, 0.492226, -0.492225, -0.507655),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
-	},
+	},	
 	MecanimBodyBone.LeftMiddleProximal: {
-		"pre_rotation": Quaternion(0.612631, 0.338819, -0.647897, -0.30019),
-		"post_rotation": Quaternion(0.498385, 0.501599, -0.498544, -0.501462),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
 	MecanimBodyBone.LeftMiddleIntermediate: {
-		"pre_rotation": Quaternion(0.622304, 0.338035, -0.61984, -0.338037),
-		"post_rotation": Quaternion(0.499851, 0.500149, -0.500146, -0.499854),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
+
 	MecanimBodyBone.LeftMiddleDistal: {
-		"pre_rotation": Quaternion(0.632289, 0.319201, -0.630709, -0.31706),
-		"post_rotation": Quaternion(0.502899, 0.497084, -0.49708, -0.502902),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
 	MecanimBodyBone.LeftRingProximal: {
-		"pre_rotation": Quaternion(0.647603, 0.299221, -0.614464, -0.336914),
-		"post_rotation": Quaternion(0.498375, 0.501641, -0.498003, -0.501968),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.LeftRingIntermediate: {
-		"pre_rotation": Quaternion(0.621233, 0.33774, -0.618959, -0.341893),
-		"post_rotation": Quaternion(0.5, 0.5, -0.5, -0.5),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.LeftRingDistal: {
-		"pre_rotation": Quaternion(0.631503, 0.318126, -0.631503, -0.318126),
-		"post_rotation": Quaternion(0.496197, 0.503774, -0.503778, -0.496194),
-		"limit_sign": Vector3(1, 1, -1)
-	},
-	MecanimBodyBone.LeftLittleProximal: {
-		"pre_rotation": Quaternion(0.640208, 0.309193, -0.600381, -0.366164),
-		"post_rotation": Quaternion(0.485161, 0.514411, -0.514414, -0.485157),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.LeftLittleIntermediate: {
-		"pre_rotation": Quaternion(0.611049, 0.328106, -0.651315, -0.307822),
-		"post_rotation": Quaternion(0.481859, 0.517506, -0.517505, -0.481859),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.LeftLittleDistal: {
-		"pre_rotation": Quaternion(0.609809, 0.330406, -0.65247, -0.305366),
-		"post_rotation": Quaternion(0.48289, 0.516544, -0.516544, -0.48289),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
+		"limit_sign": Vector3(1, 1, -1)
+	},
+	MecanimBodyBone.LeftLittleProximal: {
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, -1)
 	},
 	MecanimBodyBone.RightThumbProximal: {
-		"pre_rotation": Quaternion(0.280896, 0.948593, 0.120172, -0.082623),
-		"post_rotation": Quaternion(-0.719129, -0.690357, 0.061561, 0.049706),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(Vector3(0, 0.577, -0.816), Vector3(0, 0.816, 0.577), Vector3(1, 0, 0)),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
 	MecanimBodyBone.RightThumbIntermediate: {
-		"pre_rotation": Quaternion(0.8546, 0.513953, -0.072509, -0.015928),
-		"post_rotation": Quaternion(-0.713962, -0.696055, 0.066458, 0.036724),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
 	MecanimBodyBone.RightThumbDistal: {
-		"pre_rotation": Quaternion(0.836787, 0.54319, -0.066629, -0.017107),
-		"post_rotation": Quaternion(-0.69698, -0.7149, 0.023063, 0.051041),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, -1, -1)
 	},
 	MecanimBodyBone.RightIndexProximal: {
-		"pre_rotation": Quaternion(0.270355, 0.67603, -0.358522, -0.584254),
-		"post_rotation": Quaternion(-0.502578, -0.497303, 0.501023, 0.499081),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightIndexIntermediate: {
-		"pre_rotation": Quaternion(0.352633, 0.610926, -0.329636, -0.627503),
-		"post_rotation": Quaternion(-0.499703, -0.500296, 0.5003, 0.4997),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightIndexDistal: {
-		"pre_rotation": Quaternion(0.31634, 0.630266, -0.31993, -0.632723),
-		"post_rotation": Quaternion(-0.507624, -0.492258, 0.492262, 0.50762),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightMiddleProximal: {
-		"pre_rotation": Quaternion(0.299312, 0.648432, -0.337972, -0.612962),
-		"post_rotation": Quaternion(-0.501353, -0.498651, 0.501615, 0.498372),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightMiddleIntermediate: {
-		"pre_rotation": Quaternion(0.338002, 0.619848, -0.337988, -0.62234),
-		"post_rotation": Quaternion(-0.499861, -0.500139, 0.500136, 0.499864),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightMiddleDistal: {
-		"pre_rotation": Quaternion(0.317062, 0.630698, -0.31919, -0.632304),
-		"post_rotation": Quaternion(-0.502909, -0.497073, 0.49707, 0.502913),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, -1, 1)
 	},
 	MecanimBodyBone.RightRingProximal: {
-		"pre_rotation": Quaternion(0.33601, 0.614913, -0.298396, -0.648026),
-		"post_rotation": Quaternion(-0.501885, -0.498084, 0.501618, 0.498401),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.RightRingIntermediate: {
-		"pre_rotation": Quaternion(0.341852, 0.618979, -0.3377, -0.621257),
-		"post_rotation": Quaternion(-0.5, -0.5, 0.5, 0.5),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.RightRingDistal: {
-		"pre_rotation": Quaternion(0.318126, 0.631503, -0.318126, -0.631503),
-		"post_rotation": Quaternion(-0.496196, -0.503775, 0.503775, 0.496196),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.RightLittleProximal: {
-		"pre_rotation": Quaternion(0.365314, 0.600791, -0.308397, -0.640693),
-		"post_rotation": Quaternion(-0.485159, -0.514413, 0.514413, 0.485159),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.RightLittleIntermediate: {
-		"pre_rotation": Quaternion(0.307822, 0.651314, -0.328105, -0.61105),
-		"post_rotation": Quaternion(-0.481859, -0.517506, 0.517505, 0.481859),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.RightLittleDistal: {
-		"pre_rotation": Quaternion(0.305365, 0.65247, -0.330406, -0.609809),
-		"post_rotation": Quaternion(-0.482891, -0.516542, 0.516542, 0.482891),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(-1, 1, 1)
 	},
 	MecanimBodyBone.UpperChest: {
-		"pre_rotation": Quaternion(-0.679783, -0.733413, -0, -0),
-		"post_rotation": Quaternion(0, 0, 0.999906, -0.013728),
+		"pre_rotation": Basis(),
+		"post_rotation": Basis(),
 		"limit_sign": Vector3(1, 1, 1)
 	}
 }
@@ -1219,6 +1219,7 @@ static func _muscle_from_bone(
 	# The latest 0 retrieves the associated muscle.
 	# 1 would retrieve an associated weight.
 	return mecanim_bone_muscles[mecanim_bone][muscle_axis][0]
+
 
 static func pose_set_hips_position_rotation(
 	_pose_muscles:PackedFloat64Array,
@@ -1521,7 +1522,8 @@ class MotionData:
 	func compute_from(bone:MecanimBodyBone, decoded_values:PackedFloat32Array):
 		var decoded_vector: Vector3 = GodotHelpers.float32_array_to_vector3(decoded_values)
 		var swing_twist_degrees: Vector3 = decoded_vector * 180
-		var bone_signs: Vector3 = ShaderMotionHelpers.human_axes[bone].limit_sign
+		var bone_dictionary = ShaderMotionHelpers.get_human_axes()
+		var bone_signs: Vector3 = bone_dictionary[bone].limit_sign
 
 		var signed_swing_twist: Vector3 = swing_twist_degrees * bone_signs
 		var equivalent_rotation: Quaternion = ShaderMotionHelpers.swing_twist(signed_swing_twist)
@@ -1684,23 +1686,40 @@ static func _shadermotion_compute_hips_position(
 	return global_transform * local_point
 
 
+static func is_orthogonal(m: Basis) -> bool:
+	var identity = Basis()
+	var transposed_m = m.transposed()
+	var result = m * transposed_m
+
+	return result.is_equal_approx(identity)
+
+static func convert_rotation(motion_rotation):
+	# uses left-handed coordinates and Godot uses right-handed coordinates.
+	# This means that we need to flip the sign of the Z and W components of the quaternion.
+	return Quaternion(-motion_rotation.x, -motion_rotation.y, motion_rotation.z, -motion_rotation.w)
+
 static func _shadermotion_compute_bone_rotation(
 	bone_data:Dictionary,
 	motion_rotation:Quaternion
 ) -> Quaternion:
 
-	var pre_rotation:Quaternion = bone_data["pre_rotation"] as Quaternion
-	var post_rotation:Quaternion = bone_data["post_rotation"] as Quaternion
+	var pre_rotation = Quaternion()
+	if is_orthogonal(bone_data["pre_rotation"]):
+		pre_rotation = bone_data["pre_rotation"].get_rotation_quaternion()
 
-	return pre_rotation * motion_rotation * (post_rotation.inverse())
+	var post_rotation = Quaternion()
+	if is_orthogonal(bone_data["post_rotation"]):
+		post_rotation = bone_data["post_rotation"].get_rotation_quaternion()
+	return pre_rotation * motion_rotation * post_rotation.inverse()
 
 static func _shadermotion_multiply_bone_rotation(
 	bone_data:Dictionary,
 	motion_rotation:Quaternion,
 	current_rotation:Quaternion
 ) -> Quaternion:
-
-	var post_rotation:Quaternion = bone_data["post_rotation"] as Quaternion
+	var post_rotation:Quaternion
+	if is_orthogonal(bone_data["post_rotation"]):
+		post_rotation = bone_data["post_rotation"].get_rotation_quaternion()
 
 	return current_rotation * post_rotation * motion_rotation * (post_rotation.inverse())
 
@@ -1737,11 +1756,11 @@ static func _shadermotion_apply_human_pose(
 		var bone_rotation:Quaternion
 		if bone != MecanimBodyBone.UpperChest:
 			bone_rotation = _shadermotion_compute_bone_rotation(
-				human_axes[bone],
+				get_human_axes()[bone],
 				decoded_rotation)
 		else:
 			bone_rotation = _shadermotion_multiply_bone_rotation(
-				human_axes[bone],
+				get_human_axes()[bone],
 				decoded_rotation,
 				skeleton_bones[bone].quaternion)
 		skeleton_bones[bone].quaternion = bone_rotation
