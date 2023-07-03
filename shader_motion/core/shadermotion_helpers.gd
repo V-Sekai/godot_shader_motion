@@ -1551,9 +1551,6 @@ class ParsedMotions:
 		var decoded_values:PackedFloat32Array = PackedFloat32Array()
 
 		if not ShaderMotionHelpers.mecanim_bone_tiles.has(bone):
-			printerr(
-				"[HipsData._decoded_values_from] ShaderMotion ignores bone %d"
-				% [bone])
 			return decoded_values
 
 		# FIXME Check if we should rename mecanim_body_tiles to mecanim_body_slots ?
