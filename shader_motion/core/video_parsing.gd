@@ -2,7 +2,6 @@ extends VideoStreamPlayer
 
 @export var skeleton_root_path: String
 @export var generated_animation_filepath: String
-@export var max_seconds_saved: float
 
 var animation: Animation = Animation.new()
 var _cached_bones_names
@@ -128,23 +127,19 @@ func save_and_quit(stream_time: float):
 	ResourceSaver.save(animation, generated_animation_filepath)
 	get_tree().quit()
 
+const FRAME_DURATION = 1.0 / 30.0 
+const STREAM_LENGTH = 5
 
 func _ready():
 	_cached_bones_names = ShaderMotionHelpers.MecanimBodyBone.keys()
 	skeleton_bones = _generate_dummy_bones_array()
 	_prepare_animation_tracks(animation, _cached_bones_names)
 
+	var total_frames = int(STREAM_LENGTH / FRAME_DURATION)  # Calculate total number of frames
+	for frame in range(total_frames):
+		var frame_time = frame * FRAME_DURATION  # Calculate the time for the current frame
+		var tiles: Array = _retrieve_frames(frame_time)
+		_add_animation_frame(animation, tiles, frame_time)
+		print("Frame: ", frame, " Time: ", frame_time)
 
-func _process(_delta):
-	if paused:
-		return
-
-	if is_playing():
-		var current_position: float = stream_position
-		var tiles: Array = _retrieve_frames(current_position)
-		_add_animation_frame(animation, tiles, current_position)
-	else:
-		save_and_quit(stream_position)
-
-	if stream_position >= max_seconds_saved:
-		save_and_quit(stream_position)
+	save_and_quit(STREAM_LENGTH)

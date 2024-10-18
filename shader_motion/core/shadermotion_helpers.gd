@@ -1772,5 +1772,3 @@ static func decode_slot_value(
 	tile_colors:Array[Color]
 ) -> float:
 	return ShaderMotionHLSLHelpers.decode_tiles(tile_colors)
-
-
